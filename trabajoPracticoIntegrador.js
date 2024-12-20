@@ -4,14 +4,14 @@
 let libros = [   
     { id: 1, titulo: "Harry Potter y la piedra filosofal", autor: "J.K. Rowling", anio: 1997, genero: "Fantasía, Aventura", disponible: true },
     { id: 2, titulo: "Harry Potter y la cámara secreta", autor: "J.K. Rowling", anio: 1998, genero: "Fantasía, Aventura", disponible: true },
-    { id: 3, titulo: "Harry Potter y el prisionero de Azkaban", autor: "J.K. Rowling", anio: 1999, genero: "Fantasía, Aventura", disponible: true},
-    { id: 4, titulo: "Harry Potter y el cáliz de fuego", autor: "J.K. Rowling", anio: 2000, genero: "Fantasía, Aventura", disponible: true },
+    { id: 3, titulo: "Harry Potter y el prisionero de Azkaban", autor: "J.K. Rowling", anio: 2002, genero: "Fantasía, Aventura", disponible: true},
+    { id: 4, titulo: "Harry Potter y el cáliz de fuego", autor: "J.K. Rowling", anio: 2001, genero: "Fantasía, Aventura", disponible: true },
     { id: 5, titulo: "Harry Potter y la Orden del Fénix", autor: "J.K. Rowling", anio: 2003, genero: "Fantasía, Aventura", disponible: true},
     { id: 6, titulo: "Harry Potter y el misterio del príncipe",autor: "J.K. Rowling",anio: 2005,genero: "Fantasía, Aventura",disponible: true},
     { id: 7, titulo: "Harry Potter y las reliquias de la muerte",autor: "J.K. Rowling",anio: 2007,genero: "Fantasía, Aventura",disponible: true},
     { id: 8, titulo: "El ladrón del rayo", autor: "Rick Riordan", anio: 2005, genero: "Fantasía, Aventura", disponible: true },
     { id: 9, titulo: "El mar de los monstruos", autor: "Rick Riordan", anio: 2006, genero: "Fantasía, Aventura", disponible: true },
-    { id: 10, titulo: "La maldición del titán", autor: "Rick Riordan", anio: 2007, genero: "Fantasía, Aventura", disponible: true}
+    { id: 10, titulo: "La maldición del titán", autor: "Rick Riordan", anio: 2004, genero: "Fantasía, Aventura", disponible: true}
 ];
 // b) Crear un array de objetos llamado usuarios con al menos 5 usuarios.
 // Cada usuario debe tener:id (número) ✓ nombre (string) ✓ email (string) ✓ librosPrestados (array de ids de libros).
@@ -25,21 +25,71 @@ let usuarios = [
 // 2. Funciones de Gestión de Libros
 // a) Implementar una función agregarLibro(id, titulo, autor, anio, genero) que agregue un nuevo libro al array libros.
 function agregarLibro(id, titulo, autor, anio, genero){
-    
+    let nuevoLibro = {id, titulo, autor, anio, genero, disponible: true}
+    libros.push(nuevoLibro)
+    // console.log(libros);
 }
+// agregarLibro(1, "titulo", "autor", 1990, "Fnnati" );
+
 // b) Crear una función buscarLibro(criterio, valor) que permita buscar libros por título, autor o género utilizando el algoritmo de búsqueda lineal.
 function buscarLibro(criterio, valor){
-
+    criterio = criterio.toLowerCase();
+    console.log(criterio, valor);
+    for(let i =0 ; i < libros.length; i++){
+        if(criterio == 'titulo' && libros[i].titulo.toLowerCase() == valor.toLowerCase()){
+            return libros[i];
+        }
+        if(criterio == 'autor' && libros[i].autor.toLowerCase() == valor.toLowerCase()){
+            return libros[i];
+        }
+        if(criterio == 'genero' && libros[i].genero.toLowerCase() == valor.toLowerCase()){
+            return libros[i];
+        }
+    }
+    return -1;
 }
+// console.log(buscarLibro("titulo", "Hay Potter y la piedra filosofal"));
+
 // c) Desarrollar una función ordenarLibros(criterio) que ordene los libros por título o año utilizando el algoritmo de ordenamiento burbuja
 // (bubble sort) y luego muestre los libros ordenados en la consola.
 function ordenarLibros(criterio){
-
+   criterio = criterio.toLowerCase()
+    for(let i = 0 ; i < libros.length; i++){
+        for(let j = 0; j < libros.length -i - 1; j++){
+            let libroActual = libros[j];
+            let libroSiguiente = libros[j + 1];
+            if(criterio == 'titulo'){
+                if((libroActual.titulo.toLowerCase() > libroSiguiente.titulo.toLowerCase())){
+                    // console.log(libros[j].titulo.toLowerCase(), libros[j+1].titulo.toLowerCase());
+                    let temp = libros[j];
+                    // console.log('MAS LARGO', libroMasLargo);
+                    libros[j] = libros[j+1];
+                    libros[j+1] = temp;
+                }
+            } else if(criterio == 'anio'){
+                if((libroActual.anio > libroSiguiente.anio)){
+                    // console.log(libros[j].anio.toLowerCase(), libros[j+1].anio.toLowerCase());
+                    let temp = libros[j];
+                    // console.log('MAS LARGO', libroMasActual);
+                    libros[j] = libros[j+1];
+                    libros[j+1] = temp;
+                }
+            }
+        }
+    }
+    // console.log(libros);
 }
+// ordenarLibros('titulo');
 // d) Desarrollar una función borrarLibro(id) que elimine el libro que se le pase por parámetro
 function borrarLibro(id){
-
+    let indice = libros.findIndex(libro => {
+        return libro.id == id;
+    });
+    
+    libros.splice(indice, 1);
+    console.log(libros);
 }
+// borrarLibro(2);
 
 // 3. Gestión de Usuarios
 // a) Implementar una función registrarUsuario(nombre, email) que agregue un nuevo usuario al array usuarios.
