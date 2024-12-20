@@ -1,7 +1,7 @@
 // 1. Estructura de Datos
 // a) Crear un array de objetos llamado libros que contenga al menos 10
 // libros. Cada libro debe tener las siguientes propiedades: ✓ id (número) ✓ título (string), ✓ autor (string), año (número), género (string),disponible (booleano).
-const libros = [   
+let libros = [   
     {
         id: 1231,
         titulo: "Harry Potter y la piedra filosofal",
@@ -81,5 +81,39 @@ const libros = [
         anio: 2007,
         genero: "Fantasía, Aventura",
         disponible: true
+    }
+];
+// b) Crear un array de objetos llamado usuarios con al menos 5 usuarios.
+// Cada usuario debe tener:id (número) ✓ nombre (string) ✓ email (string) ✓ librosPrestados (array de ids de libros).
+let usuarios = [
+    {
+        id: 1,
+        nombre: "Fiorella Rodriguez",
+        email: "fiorellaroma98@gmail.com",
+        librosPrestados: [1231, 1232]
+    },
+    {
+        id: 2,
+        nombre: "Constanza Riveros",
+        email: "coti@gmail.com",
+        librosPrestados: [1233, 1234]
+    },
+    {
+        id: 3,
+        nombre: "Giselle Rastenis",
+        email: "giselle@gmail.com",
+        librosPrestados: [1235, 1236]
+    },
+    {
+        id: 4,
+        nombre: "Juan Perez",
+        email: "jp@gmail.com",
+        librosPrestados: [1237, 1238]
+    },
+    {
+        id: 5,
+        nombre: "Pedro Escamoso",
+        email: "pedro@gmail.com",
+        librosPrestados: [1239, 12310]
     }
 ];
