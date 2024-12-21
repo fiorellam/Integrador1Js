@@ -94,20 +94,50 @@ function borrarLibro(id){
 // 3. Gestión de Usuarios
 // a) Implementar una función registrarUsuario(nombre, email) que agregue un nuevo usuario al array usuarios.
 function registrarUsuario(nombre, email){
-
+    let id = usuarios.length + 1; 
+    let nuevoUsuario = {id, nombre, email}
+    usuarios.push(nuevoUsuario)
+   //console.log(nuevoUsuario); 
 }
+//registrarUsuario("Pablo Ramirez", "juanr@gmail.com");
+
 // b) Implementar una función mostrarTodosLosUsuarios() que me devuelva el array completo de usuarios
 function mostrarTodosLosUsuarios(){
+usuarios.join() 
+return usuarios; 
 
 }
+//console.log(mostrarTodosLosUsuarios(usuarios)); 
+
 // c) Crear una función buscarUsuario(email) que devuelva la información de un usuario dado su email.
 function buscarUsuario(email){
+    let buscandoUsuario = usuarios.find(usuario => usuario.email == email)
 
+       if(buscandoUsuario){
+            console.log(`El usuario encontrado es: ${buscandoUsuario.nombre}`); 
+       }
+       else{
+           console.log(`El usuario no ha sido encontrado`); 
+
+       }     
+    
 }
+//console.log(buscarUsuario('giselle@gmail.com')); 
+
 // d) Implementar una función borrarUsuario(nombre, email) que elimine el usuario seleccionado.
 function borrarUsuario(nombre, email){
+    let indice = usuarios.findIndex(usuario => usuario.nombre == nombre && usuario.email == email)
+    if(indice == -1){
+    console.log(`No existe un usuario con ese Email`); 
+    }
+    else{
+        usuarios.splice(indice, 1)
+        console.log(`El usuario ${nombre} fue eliminado`)
+    }
+
 
 }
+borrarUsuario("Giselle Rastenis", "giselle@gmail.com"); 
 
 // 4. Sistema de Préstamos
 // a) Desarrollar una función prestarLibro(idLibro, idUsuario) que marque un libro como no disponible y lo agregue a la lista de libros prestados del usuario.
