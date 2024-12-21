@@ -11,12 +11,12 @@ let libros = [
     { id: 7, titulo: "Harry Potter y las reliquias de la muerte",autor: "J.K. Rowling",anio: 2007,genero: "Fantasía, Aventura",disponible: true},
     { id: 8, titulo: "El ladrón del rayo", autor: "Rick Riordan", anio: 2005, genero: "Fantasía, Aventura", disponible: true },
     { id: 9, titulo: "El mar de los monstruos", autor: "Rick Riordan", anio: 2006, genero: "Fantasía, Aventura", disponible: true },
-    { id: 10, titulo: "La maldición del titán", autor: "Rick Riordan", anio: 2004, genero: "Fantasía, Aventura", disponible: true}
+    { id: 10, titulo: "La maldición del titán", autor: "Rick Riordan", anio: 2004, genero: "Fantasía, Aventura", disponible: false}
 ];
 // b) Crear un array de objetos llamado usuarios con al menos 5 usuarios.
 // Cada usuario debe tener:id (número) ✓ nombre (string) ✓ email (string) ✓ librosPrestados (array de ids de libros).
 let usuarios = [
-    {id: 1, nombre: "Fiorella Rodriguez", email: "fiorellaroma98@gmail.com", librosPrestados: [1231, 1232]},
+    {id: 1, nombre: "Fiorella Rodriguez", email: "fiorellaroma98@gmail.com", librosPrestados: [1231, 1232, 10]},
     {id: 2, nombre: "Constanza Riveros", email: "coti@gmail.com", librosPrestados: [1233, 1234]},
     {id: 3, nombre: "Giselle Rastenis", email: "giselle@gmail.com",librosPrestados: [1235, 1236]},
     {id: 4, nombre: "Juan Perez", email: "jp@gmail.com", librosPrestados: [1237, 1238]},
@@ -112,12 +112,66 @@ function borrarUsuario(nombre, email){
 // 4. Sistema de Préstamos
 // a) Desarrollar una función prestarLibro(idLibro, idUsuario) que marque un libro como no disponible y lo agregue a la lista de libros prestados del usuario.
 function prestarLibro(idLibro, idUsuario){
+    //libroPrestado = false;
+    idLibro = parseInt(prompt('Ingrese el id del libro: '));
+    let findBook = libros.find(libro => libro.id == idLibro);
+    if(!findBook){
+        console.log(`El id ${idLibro} no existe`);
+        return;
+    };
 
-}
+    if(findBook.disponible == false){
+        console.log(`El libro ${findBook.titulo} no se encuentra disponible`);
+        libroPrestado = false;
+        return;
+    }else if(findBook.disponible == true) {
+        findBook.disponible = false
+        libroPrestado = true;
+    };
+
+    idUsuario = parseInt(prompt('Ingrese el id del usuario: '));
+    let findUser = usuarios.find(usuario => usuario.id == idUsuario);
+    if(!findUser){
+        console.log(`No existe un usuario con este id`);
+        libroPrestado = false;
+    }else{
+        findUser.librosPrestados.push(findBook.id)
+        console.log(`El usuario ${findUser.nombre} tomó prestado el libro ${findBook.titulo}`);
+    };
+};
+
 // b) Implementar una función devolverLibro(idLibro, idUsuario) que marque un libro como disponible y lo elimine de la lista de libros prestados del usuario.
 function devolverLibro(idLibro, idUsuario){
+ //Declaro la variable libroDevuelto como false para al final poder imprimir el mensaje correcto
+    idLibro = parseInt(prompt('Ingrese el ID del libro a devolver: '));
+    let encontrarLibro = libros.find(libro => libro.id == idLibro);
+    if(!encontrarLibro){
+        console.log(`El id ${idLibro} no existe`);
+        return;
+    }else if(encontrarLibro.disponible === true){
+        console.log(`El libro ${encontrarLibro.titulo} no ha sido prestado`);
+        return;
+    }else{
+        encontrarLibro.disponible = true;
+    };
 
-}
+    idUsuario = parseInt(prompt('Ingrese el ID del usuario: '));
+    let encontrarUsuario = usuarios.find(usuario => usuario.id === idUsuario);
+    if(!encontrarUsuario){
+        console.log(`El id ${idUsuario} no existe`);
+        return;}
+    
+    let bookIndex = encontrarUsuario.librosPrestados.indexOf(idLibro)
+    if(bookIndex === -1){
+        console.log(`El usuario ${encontrarUsuario.nombre} no tomò prestado el libro ${encontrarLibro.titulo}`);
+        return;
+    }else if(encontrarUsuario && bookIndex){
+        encontrarUsuario.librosPrestados.splice(bookIndex, 1)
+    };
+    
+    console.log(`El usuario ${encontrarUsuario.nombre} devolvió el libro ${encontrarLibro.titulo}`);
+};
+//devolverLibro();
 
 // 5. Reportes
 // a) Crear una función generarReporteLibros() que utilice métodos avanzados de arrays (.map(), .filter(), .reduce()) para generar un reporte con la siguiente
