@@ -46,7 +46,6 @@ function buscarLibro(criterio, valor){
             return libros[i];
         }
     }
-    // return -1;
 }
 // console.log(buscarLibro("titulo", "Hay Potter y la piedra filosofal"));
 
@@ -103,9 +102,8 @@ function registrarUsuario(nombre, email){
 
 // b) Implementar una función mostrarTodosLosUsuarios() que me devuelva el array completo de usuarios
 function mostrarTodosLosUsuarios(){
-usuarios.join() 
-return usuarios; 
-
+    usuarios.join() 
+    return usuarios; 
 }
 //console.log(mostrarTodosLosUsuarios(usuarios)); 
 
@@ -118,9 +116,7 @@ function buscarUsuario(email){
        }
        else{
            console.log(`El usuario no ha sido encontrado`); 
-
-       }     
-    
+       }
 }
 //console.log(buscarUsuario('giselle@gmail.com')); 
 
@@ -134,8 +130,6 @@ function borrarUsuario(nombre, email){
         usuarios.splice(indice, 1)
         console.log(`El usuario ${nombre} fue eliminado`)
     }
-
-
 }
 borrarUsuario("Giselle Rastenis", "giselle@gmail.com"); 
 
