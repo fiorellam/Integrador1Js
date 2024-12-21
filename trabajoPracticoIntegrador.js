@@ -4,13 +4,13 @@
 let libros = [   
     { id: 1, titulo: "Harry Potter y la piedra filosofal", autor: "J.K. Rowling", anio: 1997, genero: "Fantasía, Aventura", disponible: true },
     { id: 2, titulo: "Harry Potter y la cámara secreta", autor: "J.K. Rowling", anio: 1998, genero: "Fantasía, Aventura", disponible: true },
-    { id: 3, titulo: "Harry Potter y el prisionero de Azkaban", autor: "J.K. Rowling", anio: 2002, genero: "Fantasía, Aventura", disponible: true},
+    { id: 3, titulo: "Harry Potter y el prisionero de Azkaban", autor: "J.K. Rowling", anio: 2002, genero: "Comedia", disponible: true},
     { id: 4, titulo: "Harry Potter y el cáliz de fuego", autor: "J.K. Rowling", anio: 2001, genero: "Fantasía, Aventura", disponible: true },
-    { id: 5, titulo: "Harry Potter y la Orden del Fénix", autor: "J.K. Rowling", anio: 2003, genero: "Fantasía, Aventura", disponible: true},
-    { id: 6, titulo: "Harry Potter y el misterio del príncipe",autor: "J.K. Rowling",anio: 2005,genero: "Fantasía, Aventura",disponible: true},
+    { id: 5, titulo: "Harry Potter y la Orden del Fénix", autor: "J.K. Rowling", anio: 2003, genero: "Ciencia Ficción", disponible: true},
+    { id: 6, titulo: "Harry Potter y el misterio del príncipe",autor: "J.K. Rowling",anio: 2005,genero: "Comedia",disponible: false},
     { id: 7, titulo: "Harry Potter y las reliquias de la muerte",autor: "J.K. Rowling",anio: 2007,genero: "Fantasía, Aventura",disponible: true},
     { id: 8, titulo: "El ladrón del rayo", autor: "Rick Riordan", anio: 2005, genero: "Fantasía, Aventura", disponible: true },
-    { id: 9, titulo: "El mar de los monstruos", autor: "Rick Riordan", anio: 2006, genero: "Fantasía, Aventura", disponible: true },
+    { id: 9, titulo: "El mar de los monstruos", autor: "Rick Riordan", anio: 2006, genero: "Ciencia Ficción", disponible: true },
     { id: 10, titulo: "La maldición del titán", autor: "Rick Riordan", anio: 2004, genero: "Fantasía, Aventura", disponible: true}
 ];
 // b) Crear un array de objetos llamado usuarios con al menos 5 usuarios.
@@ -46,7 +46,7 @@ function buscarLibro(criterio, valor){
             return libros[i];
         }
     }
-    return -1;
+    // return -1;
 }
 // console.log(buscarLibro("titulo", "Hay Potter y la piedra filosofal"));
 
@@ -112,6 +112,7 @@ function borrarUsuario(nombre, email){
 // 4. Sistema de Préstamos
 // a) Desarrollar una función prestarLibro(idLibro, idUsuario) que marque un libro como no disponible y lo agregue a la lista de libros prestados del usuario.
 function prestarLibro(idLibro, idUsuario){
+    let libro = libros.find()
 
 }
 // b) Implementar una función devolverLibro(idLibro, idUsuario) que marque un libro como disponible y lo elimine de la lista de libros prestados del usuario.
@@ -123,8 +124,39 @@ function devolverLibro(idLibro, idUsuario){
 // a) Crear una función generarReporteLibros() que utilice métodos avanzados de arrays (.map(), .filter(), .reduce()) para generar un reporte con la siguiente
 // información: ✓ Cantidad total de libros. ✓ Cantidad de libros prestados. ✓ Cantidad de libros por género. ✓ Libro más antiguo y más nuevo
 function generarReporteLibro(){
+    let cantidadTotalLibros = libros.reduce(acumulador=>{
+        return acumulador + 1;
+    }, 0)
+    //Otra forma de resolverlo
+    // let cantidadTotalLibros = libros.length;
+    console.log("Cantidad total de libros: ", cantidadTotalLibros);
 
+    let librosPrestados = libros.filter(libro => {
+        return libro.disponible === false;
+    });
+    console.log("Cantidad de libros prestados: ", librosPrestados.length);
+
+    let librosPorGenero = libros.reduce((acumulador, libro) => {
+        // console.log('Acumulador ', acumulador);
+        if(acumulador[libro.genero]){
+            acumulador[libro.genero] += 1;
+        } else {
+            acumulador[libro.genero] = 1 ;
+        }
+        return acumulador;
+    },{})
+    console.log('Libros por genero: ', librosPorGenero);
+
+    let libroMasNuevo = libros.reduce((masNuevo, libroActual)=>{
+        return masNuevo.anio < libroActual.anio ? libroActual : masNuevo;
+    });
+    let libroMasAntiguo = libros.reduce((masAntiguo, libroActual)=>{
+        return masAntiguo.anio < libroActual.anio ? masAntiguo : libroActual;
+    });
+    console.log("Libro mas nuevo: " , libroMasNuevo);
+    console.log("Libro mas antiguo: ", libroMasAntiguo);
 }
+generarReporteLibro();
 
 // 6. Identificación Avanzada de libros
 // a) Implementar una función librosConPalabrasEnTitulo() que identifique y muestre todos los libros cuyo título contiene más de una palabra
@@ -138,9 +170,64 @@ function librosConPalabrasEnTitulo(){
 // a) Desarrollar una función calcularEstadisticas() que utilice el objeto Math para calcular y mostrar:
 // ✓ Promedio de años de publicación de los libros. ✓ Año de publicación más frecuente.  ✓ Diferencia en años entre el libro más antiguo y el más nuevo
 function calcularEstadisticas(){
+    let sumaAnios = libros.reduce((suma, libro) => {
+        return suma + libro.anio;
+    }, 0 )
+
+    let cantidadLibros = libros.length;
+    let promedio = Math.round(sumaAnios / cantidadLibros);
+    console.log('Promedio de anios de publicacion', promedio);
+
+    let librosAniosFrecuencias = libros.reduce((acumulador, libro) => {
+        if(acumulador[libro.anio]){
+            acumulador[libro.anio] += 1;
+        } else {
+            acumulador[libro.anio] = 1;
+        }
+        return acumulador;
+    }, {});
+
+    let propiedades = [];
+    for(let propiedad in librosAniosFrecuencias){
+        propiedades.push(propiedad);
+    }
+
+    let max = 0;
+    let anioFrecuente = 0;
+    for(let i = 0; i < propiedades.length; i++){
+        let clave = propiedades[i];
+        // console.log(librosAniosFrecuencias[clave]);
+        //Math.max toma dos o mas numeros y devuelve el mas grande entre ellos
+        max = Math.max(max, librosAniosFrecuencias[clave]);
+
+        if(librosAniosFrecuencias[clave] === max){
+            anioFrecuente = clave;
+        }
+    }
+
+    // console.log(librosAniosFrecuencias);
+    console.log("El anio mas frecuente fue: ", anioFrecuente);
+
+    let anios = libros.map(libro => {
+        return libro.anio;
+    });
+
+    let anioMasAntiguo = anios[0];
+    let anioMasNuevo = anios[0];
+
+    for(let i = 1; i < anios.length; i++){
+        anioMasAntiguo = Math.min(anioMasAntiguo, anios[i]);
+    }
+
+    for(let i = 1; i < anios.length; i++){
+        anioMasNuevo = Math.max(anioMasNuevo, anios[i]);
+    }
+
+    let diferenciaAnios = Math.abs(anioMasAntiguo - anioMasNuevo)
+    console.log("Diferencia de anios: ", diferenciaAnios);
 
 }
-
+// calcularEstadisticas();
 // 8. Manejo de Cadenas
 // a) Crear una función normalizarDatos() que utilice métodos de strings para:
 // ✓ Convertir todos los títulos a mayúsculas. ✓ Eliminar espacios en blanco al inicio y final de los nombres de autores. ✓ Formatear los emails de los usuarios a minúsculas.
