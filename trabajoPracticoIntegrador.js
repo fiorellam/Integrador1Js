@@ -27,14 +27,12 @@ let usuarios = [
 function agregarLibro(id, titulo, autor, anio, genero){
     let nuevoLibro = {id, titulo, autor, anio, genero, disponible: true}
     libros.push(nuevoLibro)
-    // console.log(libros);
 }
 // agregarLibro(1, "titulo", "autor", 1990, "Fnnati" );
 
 // b) Crear una función buscarLibro(criterio, valor) que permita buscar libros por título, autor o género utilizando el algoritmo de búsqueda lineal.
 function buscarLibro(criterio, valor){
     criterio = criterio.toLowerCase();
-    console.log(criterio, valor);
     for(let i =0 ; i < libros.length; i++){
         if(criterio == 'titulo' && libros[i].titulo.toLowerCase() == valor.toLowerCase()){
             return libros[i];
@@ -59,24 +57,19 @@ function ordenarLibros(criterio){
             let libroSiguiente = libros[j + 1];
             if(criterio == 'titulo'){
                 if((libroActual.titulo.toLowerCase() > libroSiguiente.titulo.toLowerCase())){
-                    // console.log(libros[j].titulo.toLowerCase(), libros[j+1].titulo.toLowerCase());
                     let temp = libros[j];
-                    // console.log('MAS LARGO', libroMasLargo);
                     libros[j] = libros[j+1];
                     libros[j+1] = temp;
                 }
             } else if(criterio == 'anio'){
                 if((libroActual.anio > libroSiguiente.anio)){
-                    // console.log(libros[j].anio.toLowerCase(), libros[j+1].anio.toLowerCase());
                     let temp = libros[j];
-                    // console.log('MAS LARGO', libroMasActual);
                     libros[j] = libros[j+1];
                     libros[j+1] = temp;
                 }
             }
         }
     }
-    // console.log(libros);
 }
 // ordenarLibros('titulo');
 // d) Desarrollar una función borrarLibro(id) que elimine el libro que se le pase por parámetro
@@ -85,7 +78,12 @@ function borrarLibro(id){
         return libro.id == id;
     });
     
-    libros.splice(indice, 1);
+    if(indice != -1){
+        libros.splice(indice, 1);
+        console.log(`El libro con id ${id} fue eliminado`);
+    } else {
+        console.log(`El libro que intentas eliminar, no existe`);
+    }
     console.log(libros);
 }
 // borrarLibro(2);
@@ -111,12 +109,11 @@ function mostrarTodosLosUsuarios(){
 function buscarUsuario(email){
     let buscandoUsuario = usuarios.find(usuario => usuario.email == email)
 
-       if(buscandoUsuario){
-            console.log(`El usuario encontrado es: ${buscandoUsuario.nombre}`); 
-       }
-       else{
-           console.log(`El usuario no ha sido encontrado`); 
-       }
+    if(buscandoUsuario){
+        console.log(`El usuario encontrado es: ${buscandoUsuario.nombre}`); 
+    }else{
+        console.log(`El usuario no ha sido encontrado`); 
+    }
 }
 //console.log(buscarUsuario('giselle@gmail.com')); 
 
@@ -125,13 +122,12 @@ function borrarUsuario(nombre, email){
     let indice = usuarios.findIndex(usuario => usuario.nombre == nombre && usuario.email == email)
     if(indice == -1){
     console.log(`No existe un usuario con ese Email`); 
-    }
-    else{
+    }else{
         usuarios.splice(indice, 1)
         console.log(`El usuario ${nombre} fue eliminado`)
     }
 }
-borrarUsuario("Giselle Rastenis", "giselle@gmail.com"); 
+// borrarUsuario("Giselle Rastenis", "giselle@gmail.com"); 
 
 // 4. Sistema de Préstamos
 // a) Desarrollar una función prestarLibro(idLibro, idUsuario) que marque un libro como no disponible y lo agregue a la lista de libros prestados del usuario.
@@ -233,7 +229,7 @@ function generarReporteLibro(){
     console.log("Libro mas nuevo: " , libroMasNuevo);
     console.log("Libro mas antiguo: ", libroMasAntiguo);
 }
-generarReporteLibro();
+// generarReporteLibro();
 
 // 6. Identificación Avanzada de libros
 // a) Implementar una función librosConPalabrasEnTitulo() que identifique y muestre todos los libros cuyo título contiene más de una palabra
