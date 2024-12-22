@@ -7,20 +7,20 @@ let libros = [
     { id: 3, titulo: "Harry Potter y el prisionero de Azkaban", autor: "J.K. Rowling", anio: 2002, genero: "Comedia", disponible: true},
     { id: 4, titulo: "Harry Potter y el cáliz de fuego", autor: "J.K. Rowling", anio: 2001, genero: "Fantasía, Aventura", disponible: true },
     { id: 5, titulo: "Harry Potter y la Orden del Fénix", autor: "J.K. Rowling", anio: 2003, genero: "Ciencia Ficción", disponible: true},
-    { id: 6, titulo: "Harry Potter y el misterio del príncipe",autor: "J.K. Rowling",anio: 2005,genero: "Comedia",disponible: false},
+    { id: 6, titulo: "Harry Potter y el misterio de los 5 príncipes",autor: "J.K. Rowling",anio: 2005,genero: "Comedia",disponible: false},
     { id: 7, titulo: "Harry Potter y las reliquias de la muerte",autor: "J.K. Rowling",anio: 2007,genero: "Fantasía, Aventura",disponible: true},
-    { id: 8, titulo: "El ladrón del rayo", autor: "Rick Riordan", anio: 2005, genero: "Fantasía, Aventura", disponible: true },
-    { id: 9, titulo: "El mar de los monstruos", autor: "Rick Riordan", anio: 2006, genero: "Ciencia Ficción", disponible: true },
+    { id: 8, titulo: "El ladrón del rayo 2", autor: "Rick Riordan", anio: 2005, genero: "Fantasía, Aventura", disponible: true },
+    { id: 9, titulo: "El mar de los 5 monstruos", autor: "Rick Riordan", anio: 2006, genero: "Ciencia Ficción", disponible: true },
     { id: 10, titulo: "La maldición del titán", autor: "Rick Riordan", anio: 2004, genero: "Fantasía, Aventura", disponible: true}
 ];
 // b) Crear un array de objetos llamado usuarios con al menos 5 usuarios.
 // Cada usuario debe tener:id (número) ✓ nombre (string) ✓ email (string) ✓ librosPrestados (array de ids de libros).
 let usuarios = [
-    {id: 1, nombre: "Fiorella Rodriguez", email: "fiorellaroma98@gmail.com", librosPrestados: [1231, 1232, 10]},
-    {id: 2, nombre: "Constanza Riveros", email: "coti@gmail.com", librosPrestados: [1233, 1234]},
-    {id: 3, nombre: "Giselle Rastenis", email: "giselle@gmail.com",librosPrestados: [1235, 1236]},
-    {id: 4, nombre: "Juan Perez", email: "jp@gmail.com", librosPrestados: [1237, 1238]},
-    {id: 5, nombre: "Pedro Escamoso", email: "pedro@gmail.com", librosPrestados: [1239, 12310]}
+    {id: 1, nombre: "Fiorella Rodriguez", email: "FIORELLAROMA98@GMAIL.COM", librosPrestados: [1231, 1232, 10]},
+    {id: 2, nombre: "Constanza Riveros", email: "COTI@GMAIL.COM", librosPrestados: [1233, 1234]},
+    {id: 3, nombre: "Giselle Rastenis", email: "GISELLE@GMAIL.COM",librosPrestados: [1235, 1236]},
+    {id: 4, nombre: "Juan Perez", email: "JP@GMAIL.COM", librosPrestados: [1237, 1238]},
+    {id: 5, nombre: "Pedro Escamoso", email: "PEDRO@GMAIL.COM", librosPrestados: [1239, 12310]}
 ];
 const prompt = require('prompt-sync')();
 // 2. Funciones de Gestión de Libros
@@ -241,8 +241,13 @@ function generarReporteLibro(){
 // (no títulos que contengan números ni otros caracteres).
 // b) La función debe devolver un array con los títulos de esos libros y mostrarlo en la consola.
 function librosConPalabrasEnTitulo(){
-
+const onlyWords = /^[^\d]+$/;
+let titulosSoloPalabras = libros.filter(libro =>
+    onlyWords.test(libro.titulo)
+)
+console.log(titulosSoloPalabras); 
 }
+//librosConPalabrasEnTitulo(libros); 
 
 // 7. Cálculos Estadísticos
 // a) Desarrollar una función calcularEstadisticas() que utilice el objeto Math para calcular y mostrar:
@@ -308,10 +313,33 @@ function calcularEstadisticas(){
 
 // 8. Manejo de Cadenas
 // a) Crear una función normalizarDatos() que utilice métodos de strings para:
-// ✓ Convertir todos los títulos a mayúsculas. ✓ Eliminar espacios en blanco al inicio y final de los nombres de autores. ✓ Formatear los emails de los usuarios a minúsculas.
-function normalizarDatos(){
 
+function normalizarDatos(){
+    
+//✓ Convertir todos los títulos a mayúscula. 
+    
+    libros.map(function(libro){
+       let libroMayuscula = libro.titulo.toUpperCase(); 
+       console.log(libroMayuscula);
+
+//✓ Eliminar espacios en blanco al inicio y final de los nombres de autores. 
+
+    let autoresSinEspacios = libro.autor.trim(); 
+      console.log(autoresSinEspacios); 
+
+    })
+
+// ✓ Formatear los emails de los usuarios a minúsculas.
+
+usuarios.map(function(usuario){
+      let mailMinuscula = usuario.email.toLowerCase(); 
+      console.log(mailMinuscula);  
+    })
+   
 }
+normalizarDatos (libros, usuarios); 
+
+
 
 // 9. Interfaz de Usuario por Consola
 // a) Implementar una función menuPrincipal() que muestre un menú de opciones al usuario y permita interactuar con el sistema utilizando prompt().
