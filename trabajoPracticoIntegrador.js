@@ -22,30 +22,37 @@ let usuarios = [
     {id: 4, nombre: "Juan Perez", email: "jp@gmail.com", librosPrestados: [1237, 1238]},
     {id: 5, nombre: "Pedro Escamoso", email: "pedro@gmail.com", librosPrestados: [1239, 12310]}
 ];
+const prompt = require('prompt-sync')();
 // 2. Funciones de Gestión de Libros
 // a) Implementar una función agregarLibro(id, titulo, autor, anio, genero) que agregue un nuevo libro al array libros.
 function agregarLibro(id, titulo, autor, anio, genero){
     let nuevoLibro = {id, titulo, autor, anio, genero, disponible: true}
     libros.push(nuevoLibro)
+    console.log(`El libro ${nuevoLibro.titulo} fue añadido`);
 }
-// agregarLibro(1, "titulo", "autor", 1990, "Fnnati" );
 
 // b) Crear una función buscarLibro(criterio, valor) que permita buscar libros por título, autor o género utilizando el algoritmo de búsqueda lineal.
 function buscarLibro(criterio, valor){
     criterio = criterio.toLowerCase();
+    let resultado;
     for(let i =0 ; i < libros.length; i++){
         if(criterio == 'titulo' && libros[i].titulo.toLowerCase() == valor.toLowerCase()){
-            return libros[i];
+            resultado = libros[i];
         }
         if(criterio == 'autor' && libros[i].autor.toLowerCase() == valor.toLowerCase()){
-            return libros[i];
+            retultado = libros[i];
         }
         if(criterio == 'genero' && libros[i].genero.toLowerCase() == valor.toLowerCase()){
-            return libros[i];
+            resultado = libros[i];
         }
     }
+    if(resultado != null){
+        console.log("El libro fue encontrado", resultado);
+    } else {
+        console.log("El libro no fue encontrado");
+    }
+    
 }
-// console.log(buscarLibro("titulo", "Hay Potter y la piedra filosofal"));
 
 // c) Desarrollar una función ordenarLibros(criterio) que ordene los libros por título o año utilizando el algoritmo de ordenamiento burbuja
 // (bubble sort) y luego muestre los libros ordenados en la consola.
@@ -71,22 +78,20 @@ function ordenarLibros(criterio){
         }
     }
 }
-// ordenarLibros('titulo');
+
 // d) Desarrollar una función borrarLibro(id) que elimine el libro que se le pase por parámetro
 function borrarLibro(id){
     let indice = libros.findIndex(libro => {
         return libro.id == id;
     });
-    
+    let libroEliminado;
     if(indice != -1){
-        libros.splice(indice, 1);
-        console.log(`El libro con id ${id} fue eliminado`);
+        libroEliminado = libros.splice(indice, 1);
+        console.log("El libro que fue eliminado es: ", libroEliminado);
     } else {
         console.log(`El libro que intentas eliminar, no existe`);
     }
-    console.log(libros);
 }
-// borrarLibro(2);
 
 // 3. Gestión de Usuarios
 // a) Implementar una función registrarUsuario(nombre, email) que agregue un nuevo usuario al array usuarios.
@@ -300,7 +305,7 @@ function calcularEstadisticas(){
     console.log("Diferencia de anios: ", diferenciaAnios);
 
 }
-// calcularEstadisticas();
+
 // 8. Manejo de Cadenas
 // a) Crear una función normalizarDatos() que utilice métodos de strings para:
 // ✓ Convertir todos los títulos a mayúsculas. ✓ Eliminar espacios en blanco al inicio y final de los nombres de autores. ✓ Formatear los emails de los usuarios a minúsculas.
@@ -312,9 +317,45 @@ function normalizarDatos(){
 // a) Implementar una función menuPrincipal() que muestre un menú de opciones al usuario y permita interactuar con el sistema utilizando prompt().
 // b) El menú debe incluir opciones para todas las funcionalidades anteriores y utilizar estructuras de control (if, switch, ciclos) para manejar la lógica.
 function menuPrincipal(){
+    console.log(`Menu principal: \n 1. Gestionar libros \n 2. Gestionar los usuarios \n 3. Gestionar prestamos \n 4. Obtener reportes  \n 5. Identificación de libros \n 6. Obtener estadísticas \n 7. Normalizar datos`);
+    let menuInicial = parseInt(prompt('Ingrese la opciòn deseada: '));
+    switch(menuInicial){
+        case 1:
+            console.log(`
+                1. Agregar un libro
+                2. Buscar un libro
+                3. Ordenar los libros alfabeticamente
+                4. Eliminar un libro`);
+                let menuGestionDeLibros = parseInt(prompt('Seleccione la acciòn que desea ejecutar: '));
+                switch(menuGestionDeLibros){
+                    case 1:
+                        agregarLibro();
+                    break;
+                    case 2:
+                        buscarLibro();
+                    break;
+                    case 3:
+                        ordenarLibros();
+                    break;    
+                    case 4:
+                        borrarLibro();
+                    break;
+                }
+        break;
+        case 2:
+            console.log(`
+                1. Registrar un nuevo usuario
+                2. Mostrar todos los usuarios
+                3. Buscar un usuario por su email
+                4. Borrar un usuario por su email`);
+                let menuGestionDeUsuarios = parseInt(prompt('Seleccione la acciòn que desea ejecutar: '));
+                case 1:
+                    registrarUsuario("pepe", "pepe@gmail.com");
+                break;
+    }
+};
 
-}
-
+menuPrincipal();
 // 10. Comentando mi código
 // a) Se tomará como último punto a evaluar la correcta utilización de comentarios explicando paso por paso su código.
 // b) Deberán seccionar el código punto por punto y con una explicación corta y simple de que hicieron en cada punto.
