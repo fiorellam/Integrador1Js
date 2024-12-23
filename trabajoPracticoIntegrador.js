@@ -26,21 +26,30 @@ const prompt = require('prompt-sync')();
 // 2. Funciones de Gestión de Libros
 // a) Implementar una función agregarLibro(id, titulo, autor, anio, genero) que agregue un nuevo libro al array libros.
 function agregarLibro(id, titulo, autor, anio, genero){
+    console.log('Ingrese los datos del libro a ingresar: ')
+    id = libros.length + 1;
+    titulo = prompt('Título: ');
+    autor = prompt('Autor: ');
+    anio = parseInt(prompt('Año de publicación: '));
+    genero = parseInt(prompt('Género: '));
     let nuevoLibro = {id, titulo, autor, anio, genero, disponible: true}
     libros.push(nuevoLibro)
     console.log(`El libro ${nuevoLibro.titulo} fue añadido`);
-}
+};
 
 // b) Crear una función buscarLibro(criterio, valor) que permita buscar libros por título, autor o género utilizando el algoritmo de búsqueda lineal.
 function buscarLibro(criterio, valor){
+    criterio = prompt('Por cual criterio quiere buscar el libro: ');
     criterio = criterio.toLowerCase();
+    valor = prompt(`Ingrese el ${criterio} del libro: `);
+    valor = valor.toLowerCase();
     let resultado;
     for(let i =0 ; i < libros.length; i++){
         if(criterio == 'titulo' && libros[i].titulo.toLowerCase() == valor.toLowerCase()){
             resultado = libros[i];
         }
         if(criterio == 'autor' && libros[i].autor.toLowerCase() == valor.toLowerCase()){
-            retultado = libros[i];
+            resultado = libros[i];
         }
         if(criterio == 'genero' && libros[i].genero.toLowerCase() == valor.toLowerCase()){
             resultado = libros[i];
@@ -51,13 +60,13 @@ function buscarLibro(criterio, valor){
     } else {
         console.log("El libro no fue encontrado");
     }
-    
-}
+};
 
 // c) Desarrollar una función ordenarLibros(criterio) que ordene los libros por título o año utilizando el algoritmo de ordenamiento burbuja
 // (bubble sort) y luego muestre los libros ordenados en la consola.
 function ordenarLibros(criterio){
-   criterio = criterio.toLowerCase()
+    criterio = prompt('Por cual criterio quiere ordenar los libros: ');
+    criterio = criterio.toLowerCase()
     for(let i = 0 ; i < libros.length; i++){
         for(let j = 0; j < libros.length -i - 1; j++){
             let libroActual = libros[j];
@@ -77,10 +86,12 @@ function ordenarLibros(criterio){
             }
         }
     }
-}
+    console.log(libros)
+};
 
 // d) Desarrollar una función borrarLibro(id) que elimine el libro que se le pase por parámetro
 function borrarLibro(id){
+    id = prompt('Ingrese el ID del libro que desea eliminar: ')
     let indice = libros.findIndex(libro => {
         return libro.id == id;
     });
@@ -91,36 +102,35 @@ function borrarLibro(id){
     } else {
         console.log(`El libro que intentas eliminar, no existe`);
     }
-}
+};
 
 // 3. Gestión de Usuarios
 // a) Implementar una función registrarUsuario(nombre, email) que agregue un nuevo usuario al array usuarios.
 function registrarUsuario(nombre, email){
+    nombre = prompt('Nombre: ');
+    email = prompt('Email: ');
     let id = usuarios.length + 1; 
     let nuevoUsuario = {id, nombre, email}
     usuarios.push(nuevoUsuario)
-   //console.log(nuevoUsuario); 
-}
-//registrarUsuario("Pablo Ramirez", "juanr@gmail.com");
+    console.log("El usuario", nuevoUsuario, "fue creado exitosamente");
+};
 
 // b) Implementar una función mostrarTodosLosUsuarios() que me devuelva el array completo de usuarios
 function mostrarTodosLosUsuarios(){
     usuarios.join() 
-    return usuarios; 
+    console.log(usuarios); 
 }
-//console.log(mostrarTodosLosUsuarios(usuarios)); 
 
 // c) Crear una función buscarUsuario(email) que devuelva la información de un usuario dado su email.
 function buscarUsuario(email){
-    let buscandoUsuario = usuarios.find(usuario => usuario.email == email)
-
+    email = prompt('Ingrese el email del usuario que desea buscar: ').toUpperCase();
+    let buscandoUsuario = usuarios.find(usuario => usuario.email.toUpperCase() == email);
     if(buscandoUsuario){
         console.log(`El usuario encontrado es: ${buscandoUsuario.nombre}`); 
     }else{
         console.log(`El usuario no ha sido encontrado`); 
     }
-}
-//console.log(buscarUsuario('giselle@gmail.com')); 
+};
 
 // d) Implementar una función borrarUsuario(nombre, email) que elimine el usuario seleccionado.
 function borrarUsuario(nombre, email){
@@ -131,13 +141,11 @@ function borrarUsuario(nombre, email){
         usuarios.splice(indice, 1)
         console.log(`El usuario ${nombre} fue eliminado`)
     }
-}
-// borrarUsuario("Giselle Rastenis", "giselle@gmail.com"); 
+;}
 
 // 4. Sistema de Préstamos
 // a) Desarrollar una función prestarLibro(idLibro, idUsuario) que marque un libro como no disponible y lo agregue a la lista de libros prestados del usuario.
 function prestarLibro(idLibro, idUsuario){
-    //libroPrestado = false;
     idLibro = parseInt(prompt('Ingrese el id del libro: '));
     let findBook = libros.find(libro => libro.id == idLibro);
     if(!findBook){
@@ -196,7 +204,6 @@ function devolverLibro(idLibro, idUsuario){
     
     console.log(`El usuario ${encontrarUsuario.nombre} devolvió el libro ${encontrarLibro.titulo}`);
 };
-//devolverLibro();
 
 // 5. Reportes
 // a) Crear una función generarReporteLibros() que utilice métodos avanzados de arrays (.map(), .filter(), .reduce()) para generar un reporte con la siguiente
@@ -234,7 +241,6 @@ function generarReporteLibro(){
     console.log("Libro mas nuevo: " , libroMasNuevo);
     console.log("Libro mas antiguo: ", libroMasAntiguo);
 }
-// generarReporteLibro();
 
 // 6. Identificación Avanzada de libros
 // a) Implementar una función librosConPalabrasEnTitulo() que identifique y muestre todos los libros cuyo título contiene más de una palabra
@@ -247,7 +253,6 @@ let titulosSoloPalabras = libros.filter(libro =>
 )
 console.log(titulosSoloPalabras); 
 }
-//librosConPalabrasEnTitulo(libros); 
 
 // 7. Cálculos Estadísticos
 // a) Desarrollar una función calcularEstadisticas() que utilice el objeto Math para calcular y mostrar:
@@ -288,7 +293,6 @@ function calcularEstadisticas(){
         }
     }
 
-    // console.log(librosAniosFrecuencias);
     console.log("El anio mas frecuente fue: ", anioFrecuente);
 
     let anios = libros.map(libro => {
@@ -319,69 +323,165 @@ function normalizarDatos(){
 //✓ Convertir todos los títulos a mayúscula. 
     
     libros.map(function(libro){
-       let libroMayuscula = libro.titulo.toUpperCase(); 
-       console.log(libroMayuscula);
+        let libroMayuscula = libro.titulo.toUpperCase(); 
+        console.log(libroMayuscula);
 
 //✓ Eliminar espacios en blanco al inicio y final de los nombres de autores. 
 
     let autoresSinEspacios = libro.autor.trim(); 
-      console.log(autoresSinEspacios); 
+    console.log(autoresSinEspacios); 
 
     })
 
 // ✓ Formatear los emails de los usuarios a minúsculas.
 
 usuarios.map(function(usuario){
-      let mailMinuscula = usuario.email.toLowerCase(); 
-      console.log(mailMinuscula);  
+    let mailMinuscula = usuario.email.toLowerCase(); 
+    console.log(mailMinuscula);  
     })
-   
-}
-normalizarDatos (libros, usuarios); 
-
+};
 
 
 // 9. Interfaz de Usuario por Consola
 // a) Implementar una función menuPrincipal() que muestre un menú de opciones al usuario y permita interactuar con el sistema utilizando prompt().
 // b) El menú debe incluir opciones para todas las funcionalidades anteriores y utilizar estructuras de control (if, switch, ciclos) para manejar la lógica.
-function menuPrincipal(){
-    console.log(`Menu principal: \n 1. Gestionar libros \n 2. Gestionar los usuarios \n 3. Gestionar prestamos \n 4. Obtener reportes  \n 5. Identificación de libros \n 6. Obtener estadísticas \n 7. Normalizar datos`);
-    let menuInicial = parseInt(prompt('Ingrese la opciòn deseada: '));
-    switch(menuInicial){
+function menuPrincipal() {
+    console.log(`
+    *** Menú Principal ***
+    1. Gestionar Libros
+    2. Gestionar Usuarios
+    3. Gestionar Préstamos
+    4. Obtener Reportes
+    5. Identificación de Libros
+    6. Obtener Estadísticas
+    7. Normalizar Datos
+    `);
+
+    let opcionMenuPrincipal = parseInt(prompt('Por favor, ingrese la opción deseada: '));
+
+    switch (opcionMenuPrincipal) {
         case 1:
             console.log(`
-                1. Agregar un libro
-                2. Buscar un libro
-                3. Ordenar los libros alfabeticamente
-                4. Eliminar un libro`);
-                let menuGestionDeLibros = parseInt(prompt('Seleccione la acciòn que desea ejecutar: '));
-                switch(menuGestionDeLibros){
-                    case 1:
-                        agregarLibro();
+            *** Gestión de Libros ***
+            1. Agregar un Libro
+            2. Buscar un Libro
+            3. Ordenar Libros Alfabéticamente
+            4. Eliminar un Libro
+            `);
+
+            let opcionLibros = parseInt(prompt('Seleccione la acción que desea realizar: '));
+
+            switch (opcionLibros) {
+                case 1:
+                    agregarLibro();
                     break;
-                    case 2:
-                        buscarLibro();
+                case 2:
+                    buscarLibro();
                     break;
-                    case 3:
-                        ordenarLibros();
-                    break;    
-                    case 4:
-                        borrarLibro();
+                case 3:
+                    ordenarLibros();
                     break;
-                }
-        break;
+                case 4:
+                    borrarLibro();
+                    break;
+                default:
+                    manejarOpcionInvalida();
+            }
+            break;
+
         case 2:
             console.log(`
-                1. Registrar un nuevo usuario
-                2. Mostrar todos los usuarios
-                3. Buscar un usuario por su email
-                4. Borrar un usuario por su email`);
-                let menuGestionDeUsuarios = parseInt(prompt('Seleccione la acciòn que desea ejecutar: '));
+            *** Gestión de Usuarios ***
+            1. Registrar un Nuevo Usuario
+            2. Mostrar Todos los Usuarios
+            3. Buscar un Usuario por Email
+            4. Borrar un Libro por ID
+            `);
+
+            let opcionUsuarios = parseInt(prompt('Seleccione la acción que desea realizar: '));
+
+            switch (opcionUsuarios) {
                 case 1:
-                    registrarUsuario("pepe", "pepe@gmail.com");
+                    registrarUsuario();
+                    break;
+                case 2:
+                    mostrarTodosLosUsuarios();
+                    break;
+                case 3:
+                    buscarUsuario();
+                    break;
+                case 4:
+                    borrarLibro();
+                    break;
+                default:
+                    manejarOpcionInvalida();
+            }
+            break;
+
+        case 3:
+            console.log(`
+            *** Sistema de Préstamos ***
+            1. Prestar un Libro
+            2. Devolver un Libro
+            `);
+
+            let opcionPrestamos = parseInt(prompt('Seleccione la acción que desea realizar: '));
+
+            switch (opcionPrestamos) {
+                case 1:
+                    prestarLibro();
+                    break;
+                case 2:
+                    devolverLibro();
+                    break;
+                default:
+                    manejarOpcionInvalida();
+            }
+            break;
+        
+            case 4:
+                generarReporteLibro();
                 break;
+
+            case 5:
+                librosConPalabrasEnTitulo();
+                break;
+
+            case 6:
+                calcularEstadisticas();
+                break;
+
+            case 7:
+                normalizarDatos();
+                break;
+
+        default:
+            console.log('Opción inválida. Por favor, seleccione una opción válida del menú principal.');
+            menuPrincipal();
+    }
+
+    function manejarOpcionInvalida() {
+        console.log(`
+        Opción no válida. ¿Qué desea hacer?
+        1. Volver al Menú Principal
+        2. Cancelar la Operación
+        `);
+
+        let opcion = parseInt(prompt('Ingrese su opción: '));
+
+        switch (opcion) {
+            case 1:
+                menuPrincipal();
+                break;
+            case 2:
+                console.log('Operación cancelada.');
+                break;
+            default:
+                console.log('Entrada inválida. Operación cancelada automáticamente.');
+        }
     }
 };
+
 
 menuPrincipal();
 // 10. Comentando mi código
