@@ -330,28 +330,22 @@ function calcularEstadisticas(){
 
 // 8. Manejo de Cadenas
 // a) Crear una función normalizarDatos() que utilice métodos de strings para:
-
 function normalizarDatos(){
-    
-//✓ Convertir todos los títulos a mayúscula. 
-    
+    //✓ Convertir todos los títulos a mayúscula. 
     libros.map(function(libro){
         let libroMayuscula = libro.titulo.toUpperCase(); // Se utiliza el metodo .toUpperCase() que nos permite convertir los caracteres de la cadena a mayuscula 
         console.log(libroMayuscula);
 
-//✓ Eliminar espacios en blanco al inicio y final de los nombres de autores. 
-
+    //✓ Eliminar espacios en blanco al inicio y final de los nombres de autores. 
     let autoresSinEspacios = libro.autor.trim(); // Ultilizamos el metodo .trim() para eliminar los espacios al principio y al final de la cadena de texto
     console.log(autoresSinEspacios); 
+    });
 
-    })
-
-// ✓ Formatear los emails de los usuarios a minúsculas.
-
-usuarios.map(function(usuario){
+    // ✓ Formatear los emails de los usuarios a minúsculas.
+    usuarios.map(function(usuario){
     let mailMinuscula = usuario.email.toLowerCase(); // Se procedio a utilizar el metodo .toLowerCase() para convertir los caracteres de la cadena a minuscula 
     console.log(mailMinuscula);  
-    })
+    });
 };
 
 
@@ -365,9 +359,9 @@ function menuPrincipal() {
     2. Gestionar Usuarios
     3. Gestionar Préstamos
     4. Obtener Reportes
-    5. Identificación de Libros
-    6. Obtener Estadísticas
-    7. Normalizar Datos
+    5. Identificación Avanzada de libros
+    6. Calculos Estadisticos
+    7. Normalizar Datos o Manejo de cadenas
     `);
 
     let opcionMenuPrincipal = parseInt(prompt('Por favor, ingrese la opción deseada: '));
