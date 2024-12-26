@@ -144,7 +144,9 @@ function buscarUsuario(email){
 
 // d) Implementar una función borrarUsuario(nombre, email) que elimine el usuario seleccionado.
 function borrarUsuario(nombre, email){
-    let indice = usuarios.findIndex(usuario => usuario.nombre == nombre && usuario.email == email)
+    nombre = prompt('Ingrese el nombre del usuario: ').toLowerCase();
+    email = prompt('Ingrese el email: ').toLowerCase();
+    let indice = usuarios.findIndex(usuario => usuario.nombre.toLowerCase() == nombre && usuario.email.toLowerCase() == email)
     // Se utiliza el metodo .findIndex() que nos permita localizar la posicion especifica de un elemento segun una condicion definida
     if(indice == -1){
     console.log(`No existe un usuario con ese Email`); 
@@ -406,7 +408,7 @@ function menuPrincipal() {
             1. Registrar un Nuevo Usuario
             2. Mostrar Todos los Usuarios
             3. Buscar un Usuario por Email
-            4. Borrar un Libro por ID
+            4. Borrar un Usuario por Nombre y Email
             `);
 
             let opcionUsuarios = parseInt(prompt('Seleccione la acción que desea realizar: '));
@@ -422,7 +424,7 @@ function menuPrincipal() {
                     buscarUsuario();
                     break;
                 case 4:
-                    borrarLibro();
+                    borrarUsuario();
                     break;
                 default:
                     manejarOpcionInvalida();
