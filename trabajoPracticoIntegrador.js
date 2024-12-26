@@ -109,15 +109,15 @@ function borrarLibro(id){
 function registrarUsuario(nombre, email){
     nombre = prompt('Nombre: ');
     email = prompt('Email: ');
-    let id = usuarios.length + 1; 
-    let nuevoUsuario = {id, nombre, email}
-    usuarios.push(nuevoUsuario)
-    console.log("El usuario", nuevoUsuario, "fue creado exitosamente");
+    let id = usuarios.length + 1; // Se define la variable id que nos permita ir agregando a cada nuevo usuario
+    let nuevoUsuario = {id, nombre, email} 
+    usuarios.push(nuevoUsuario) // Se procede a utilizar el metodo .push() que nos permite agregar un nuevo elemento al final del array 
+    console.log("El usuario", nuevoUsuario, "fue creado exitosamente"); // Se imprime al nuevo usuario en consola
 };
 
 // b) Implementar una función mostrarTodosLosUsuarios() que me devuelva el array completo de usuarios
 function mostrarTodosLosUsuarios(){
-    usuarios.join() 
+    usuarios.join() // Se utiliza el metodo .join() que nos permite combinar todos los elementos de un array en una unica cadena
     console.log(usuarios); 
 }
 
@@ -125,6 +125,8 @@ function mostrarTodosLosUsuarios(){
 function buscarUsuario(email){
     email = prompt('Ingrese el email del usuario que desea buscar: ').toUpperCase();
     let buscandoUsuario = usuarios.find(usuario => usuario.email.toUpperCase() == email);
+    // Se procede a utilizar el metodo .find() con el objeto de buscar un elemento dentro del arreglo que cumpla con determinada condicion
+    // Se utiliza el condicional if para definir las condiciones e imprimir los resultados 
     if(buscandoUsuario){
         console.log(`El usuario encontrado es: ${buscandoUsuario.nombre}`); 
     }else{
@@ -135,10 +137,11 @@ function buscarUsuario(email){
 // d) Implementar una función borrarUsuario(nombre, email) que elimine el usuario seleccionado.
 function borrarUsuario(nombre, email){
     let indice = usuarios.findIndex(usuario => usuario.nombre == nombre && usuario.email == email)
+    // Se utiliza el metodo .findIndex() que nos permita localizar la posicion especifica de un elemento segun una condicion definida
     if(indice == -1){
     console.log(`No existe un usuario con ese Email`); 
     }else{
-        usuarios.splice(indice, 1)
+        usuarios.splice(indice, 1) // Utilizamos el metodo .splice() que nos permite borrar el elemento del array
         console.log(`El usuario ${nombre} fue eliminado`)
     }
 ;}
@@ -247,9 +250,9 @@ function generarReporteLibro(){
 // (no títulos que contengan números ni otros caracteres).
 // b) La función debe devolver un array con los títulos de esos libros y mostrarlo en la consola.
 function librosConPalabrasEnTitulo(){
-const onlyWords = /^[^\d]+$/;
+const onlyWords = /^[^\d]+$/; // Se define la expresion regular para que solo reconozca palabras
 let titulosSoloPalabras = libros.filter(libro =>
-    onlyWords.test(libro.titulo)
+    onlyWords.test(libro.titulo) // Utilizando los metodos .filter y .test para poder filtrar y obtener la condicion requerida
 )
 console.log(titulosSoloPalabras); 
 }
@@ -323,12 +326,12 @@ function normalizarDatos(){
 //✓ Convertir todos los títulos a mayúscula. 
     
     libros.map(function(libro){
-        let libroMayuscula = libro.titulo.toUpperCase(); 
+        let libroMayuscula = libro.titulo.toUpperCase(); // Se utiliza el metodo .toUpperCase() que nos permite convertir los caracteres de la cadena a mayuscula 
         console.log(libroMayuscula);
 
 //✓ Eliminar espacios en blanco al inicio y final de los nombres de autores. 
 
-    let autoresSinEspacios = libro.autor.trim(); 
+    let autoresSinEspacios = libro.autor.trim(); // Ultilizamos el metodo .trim() para eliminar los espacios al principio y al final de la cadena de texto
     console.log(autoresSinEspacios); 
 
     })
@@ -336,7 +339,7 @@ function normalizarDatos(){
 // ✓ Formatear los emails de los usuarios a minúsculas.
 
 usuarios.map(function(usuario){
-    let mailMinuscula = usuario.email.toLowerCase(); 
+    let mailMinuscula = usuario.email.toLowerCase(); // Se procedio a utilizar el metodo .toLowerCase() para convertir los caracteres de la cadena a minuscula 
     console.log(mailMinuscula);  
     })
 };
