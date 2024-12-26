@@ -2,16 +2,16 @@
 // a) Crear un array de objetos llamado libros que contenga al menos 10
 // libros. Cada libro debe tener las siguientes propiedades: ✓ id (número) ✓ título (string), ✓ autor (string), año (número), género (string),disponible (booleano).
 let libros = [   
-    { id: 1, titulo: "Harry Potter y la piedra filosofal", autor: "J.K. Rowling", anio: 1997, genero: "Fantasía, Aventura", disponible: true },
-    { id: 2, titulo: "Harry Potter y la cámara secreta", autor: "J.K. Rowling", anio: 1998, genero: "Fantasía, Aventura", disponible: true },
+    { id: 1, titulo: "Harry Potter y la piedra filosofal", autor: "J.K. Rowling", anio: 1997, genero: "Fantasia, Aventura", disponible: true },
+    { id: 2, titulo: "Harry Potter y la camara secreta", autor: "J.K. Rowling", anio: 1998, genero: "Fantasia, Aventura", disponible: true },
     { id: 3, titulo: "Harry Potter y el prisionero de Azkaban", autor: "J.K. Rowling", anio: 2002, genero: "Comedia", disponible: true},
-    { id: 4, titulo: "Harry Potter y el cáliz de fuego", autor: "J.K. Rowling", anio: 2001, genero: "Fantasía, Aventura", disponible: true },
-    { id: 5, titulo: "Harry Potter y la Orden del Fénix", autor: "J.K. Rowling", anio: 2003, genero: "Ciencia Ficción", disponible: true},
-    { id: 6, titulo: "Harry Potter y el misterio de los 5 príncipes",autor: "J.K. Rowling",anio: 2005,genero: "Comedia",disponible: false},
-    { id: 7, titulo: "Harry Potter y las reliquias de la muerte",autor: "J.K. Rowling",anio: 2007,genero: "Fantasía, Aventura",disponible: true},
-    { id: 8, titulo: "El ladrón del rayo 2", autor: "Rick Riordan", anio: 2005, genero: "Fantasía, Aventura", disponible: true },
-    { id: 9, titulo: "El mar de los 5 monstruos", autor: "Rick Riordan", anio: 2006, genero: "Ciencia Ficción", disponible: true },
-    { id: 10, titulo: "La maldición del titán", autor: "Rick Riordan", anio: 2004, genero: "Fantasía, Aventura", disponible: true}
+    { id: 4, titulo: "Harry Potter y el caliz de fuego", autor: "J.K. Rowling", anio: 2001, genero: "Fantasia, Aventura", disponible: true },
+    { id: 5, titulo: "Harry Potter y la Orden del Fenix", autor: "J.K. Rowling", anio: 2003, genero: "Ciencia Ficcion", disponible: true},
+    { id: 6, titulo: "Harry Potter y el misterio de los 5 principes",autor: "J.K. Rowling",anio: 2005,genero: "Comedia",disponible: false},
+    { id: 7, titulo: "Harry Potter y las reliquias de la muerte",autor: "J.K. Rowling",anio: 2007,genero: "Fantasia, Aventura",disponible: true},
+    { id: 8, titulo: "El ladron del rayo 2", autor: "Rick Riordan", anio: 2005, genero: "Fantasia, Aventura", disponible: true },
+    { id: 9, titulo: "El mar de los 5 monstruos", autor: "Rick Riordan", anio: 2006, genero: "Ciencia Ficcion", disponible: true },
+    { id: 10, titulo: "La maldicion del titan", autor: "Rick Riordan", anio: 2004, genero: "Fantasia, Aventura", disponible: true}
 ];
 // b) Crear un array de objetos llamado usuarios con al menos 5 usuarios.
 // Cada usuario debe tener:id (número) ✓ nombre (string) ✓ email (string) ✓ librosPrestados (array de ids de libros).
@@ -39,54 +39,62 @@ function agregarLibro(id, titulo, autor, anio, genero){
 
 // b) Crear una función buscarLibro(criterio, valor) que permita buscar libros por título, autor o género utilizando el algoritmo de búsqueda lineal.
 function buscarLibro(criterio, valor){
-    criterio = prompt('Por cual criterio quiere buscar el libro: ');
+    criterio = prompt('Por cual criterio quiere buscar el libro (titulo, autor, genero)?: ');
     criterio = criterio.toLowerCase();
-    valor = prompt(`Ingrese el ${criterio} del libro: `);
-    valor = valor.toLowerCase();
-    let resultado;
-    for(let i =0 ; i < libros.length; i++){
-        if(criterio == 'titulo' && libros[i].titulo.toLowerCase() == valor.toLowerCase()){
-            resultado = libros[i];
+    let resultado = [];
+    if(criterio != "titulo" && criterio != "autor" && criterio != "genero"){
+        console.log("El criterio no es valido");
+    } else{
+        valor = prompt(`Ingrese el ${criterio} del libro: `);
+        valor = valor.toLowerCase();
+        for(let i =0 ; i < libros.length; i++){
+            if(criterio == 'titulo' && libros[i].titulo.toLowerCase() == valor.toLowerCase()){
+                resultado.push(libros[i]);
+            }
+            if(criterio == 'autor' && libros[i].autor.toLowerCase() == valor.toLowerCase()){
+                resultado.push(libros[i]);
+            }
+            if(criterio == 'genero' && libros[i].genero.toLowerCase() == valor.toLowerCase()){
+                resultado.push(libros[i]);
+            }
         }
-        if(criterio == 'autor' && libros[i].autor.toLowerCase() == valor.toLowerCase()){
-            resultado = libros[i];
+        if(resultado != null){
+            console.log("El libro fue encontrado", resultado);
+        } else {
+            console.log("El libro no fue encontrado");
         }
-        if(criterio == 'genero' && libros[i].genero.toLowerCase() == valor.toLowerCase()){
-            resultado = libros[i];
-        }
-    }
-    if(resultado != null){
-        console.log("El libro fue encontrado", resultado);
-    } else {
-        console.log("El libro no fue encontrado");
     }
 };
 
 // c) Desarrollar una función ordenarLibros(criterio) que ordene los libros por título o año utilizando el algoritmo de ordenamiento burbuja
 // (bubble sort) y luego muestre los libros ordenados en la consola.
 function ordenarLibros(criterio){
-    criterio = prompt('Por cual criterio quiere ordenar los libros: ');
+    criterio = prompt('Por cual criterio quiere ordenar los libros(titulo o anio)?: ');
     criterio = criterio.toLowerCase()
-    for(let i = 0 ; i < libros.length; i++){
-        for(let j = 0; j < libros.length -i - 1; j++){
-            let libroActual = libros[j];
-            let libroSiguiente = libros[j + 1];
-            if(criterio == 'titulo'){
-                if((libroActual.titulo.toLowerCase() > libroSiguiente.titulo.toLowerCase())){
-                    let temp = libros[j];
-                    libros[j] = libros[j+1];
-                    libros[j+1] = temp;
-                }
-            } else if(criterio == 'anio'){
-                if((libroActual.anio > libroSiguiente.anio)){
-                    let temp = libros[j];
-                    libros[j] = libros[j+1];
-                    libros[j+1] = temp;
+    if(criterio != "titulo" && criterio != "anio" ){
+        console.log("El criterio no es valido");
+    } else{
+        for(let i = 0 ; i < libros.length; i++){
+            for(let j = 0; j < libros.length -i - 1; j++){
+                let libroActual = libros[j];
+                let libroSiguiente = libros[j + 1];
+                if(criterio == 'titulo'){
+                    if((libroActual.titulo.toLowerCase() > libroSiguiente.titulo.toLowerCase())){
+                        let temp = libros[j];
+                        libros[j] = libros[j+1];
+                        libros[j+1] = temp;
+                    }
+                } else if(criterio == 'anio'){
+                    if((libroActual.anio > libroSiguiente.anio)){
+                        let temp = libros[j];
+                        libros[j] = libros[j+1];
+                        libros[j+1] = temp;
+                    }
                 }
             }
         }
+        console.log(libros)
     }
-    console.log(libros)
 };
 
 // d) Desarrollar una función borrarLibro(id) que elimine el libro que se le pase por parámetro
