@@ -383,7 +383,7 @@ function menuPrincipal() {
                     break;
                 case 4:
                     id = prompt('Ingrese el ID del libro que desea eliminar: ')
-                    borrarLibro();
+                    borrarLibro(id);
                     break;
                 default:
                     manejarOpcionInvalida();
